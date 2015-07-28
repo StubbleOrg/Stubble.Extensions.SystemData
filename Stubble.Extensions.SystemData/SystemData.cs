@@ -13,6 +13,7 @@ namespace Stubble.Extensions.SystemData
         public static IStubbleBuilder AddSystemData(this IStubbleBuilder builder)
         {
             builder.AddTruthyCheck(DataTableTruthyCheck);
+            builder.AddValueGetter(typeof (DataRow), DataRowGetter);
             return builder;
         }
 
@@ -22,6 +23,17 @@ namespace Stubble.Extensions.SystemData
             if (table != null)
             {
                 return table.Rows.Count > 0;
+            }
+            return null;
+        }
+
+        private static object DataRowGetter(object value, string key)
+        {
+            var dataRow = value as DataRow;
+
+            if (dataRow != null && dataRow.Table.Columns.Contains(key))
+            {
+                return dataRow[key];
             }
             return null;
         }
