@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,19 +13,22 @@ namespace Stubble.Extensions.SystemData
     {
         public static IStubbleBuilder AddSystemData(this IStubbleBuilder builder)
         {
-            builder.AddTruthyCheck(DataTableTruthyCheck);
-            builder.AddValueGetter(typeof (DataRow), DataRowGetter);
-            return builder;
+            return builder
+                .AddValueGetter(typeof (DataRow), DataRowGetter)
+                .AddEnumerationConversion(typeof (DataTable), DataTableEnumerationConversion)
+                .AddEnumerationConversion(typeof (DataSet), DataSetEnumerationConversion);
         }
 
-        internal static bool? DataTableTruthyCheck(object obj)
+        internal static IEnumerable DataTableEnumerationConversion(object obj)
         {
-            var table = obj as DataTable;
-            if (table != null)
-            {
-                return table.Rows.Count > 0;
-            }
-            return null;
+            var dt = obj as DataTable;
+            return dt != null ? (IEnumerable) dt.Rows : Enumerable.Empty<object>();
+        }
+
+        internal static IEnumerable DataSetEnumerationConversion(object obj)
+        {
+            var set = obj as DataSet;
+            return set != null ? (IEnumerable)set.Tables : Enumerable.Empty<object>();
         }
 
         internal static object DataRowGetter(object value, string key)

@@ -21,11 +21,24 @@ namespace Stubble.Extensions.SystemData.Tests
         }
 
         [Fact]
-        public void It_Should_Not_Error_On_Invalid_Truthy_Check()
+        public void It_Should_See_Empty_DataSets_As_Falsey()
         {
-            var output = SystemData.DataTableTruthyCheck("Foo");
+            var stubble = new StubbleBuilder().AddSystemData().Build();
 
-            Assert.Null(output);
+            var output = stubble.Render("{{#foo}}I'm in foo{{/foo}}", new { foo = new DataSet() });
+            Assert.Equal("", output);
+        }
+
+        [Fact]
+        public void It_Should_Be_Able_To_Retrieve_Values_From_DataRows()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+            dt.Rows.Add(2);
+            dt.Rows.Add(3);
+
+            Assert.Equal(1, SystemData.DataRowGetter(dt.Rows[0], "IntColumn"));
         }
     }
 }
