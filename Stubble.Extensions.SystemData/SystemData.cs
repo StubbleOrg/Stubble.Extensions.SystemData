@@ -14,7 +14,8 @@ namespace Stubble.Extensions.SystemData
         public static IStubbleBuilder AddSystemData(this IStubbleBuilder builder)
         {
             return builder
-                .AddValueGetter(typeof (DataRow), DataRowGetter)
+                .AddValueGetter(typeof(DataRow), DataRowGetter)
+                .AddValueGetter(typeof(DataSet), DataSetGetter)
                 .AddEnumerationConversion(typeof (DataTable), DataTableEnumerationConversion)
                 .AddEnumerationConversion(typeof (DataSet), DataSetEnumerationConversion);
         }
@@ -38,6 +39,17 @@ namespace Stubble.Extensions.SystemData
             if (dataRow != null && dataRow.Table.Columns.Contains(key))
             {
                 return dataRow[key];
+            }
+            return null;
+        }
+
+        internal static object DataSetGetter(object value, string key)
+        {
+            var dataSet = value as DataSet;
+
+            if (dataSet != null && dataSet.Tables.Contains(key))
+            {
+                return dataSet.Tables[key];
             }
             return null;
         }

@@ -48,5 +48,44 @@ namespace Stubble.Extensions.SystemData.Tests
 
             Assert.Null(SystemData.DataRowGetter(dt.Rows[0], "IntColumns"));
         }
+
+        [Fact]
+        public void It_Should_Treat_DataTable_As_List()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+            dt.Rows.Add(2);
+            dt.Rows.Add(3);
+
+            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var output = stubble.Render("{{#foo}}{{IntColumn}}{{/foo}}", new { foo = dt });
+            Assert.Equal("123", output);
+        }
+
+        [Fact]
+        public void It_Should_Be_Able_To_Find_DataSet_Tables_By_Name()
+        {
+            var dt = new DataTable("TableA");
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+            dt.Rows.Add(2);
+            dt.Rows.Add(3);
+
+            var dt2 = new DataTable("TableB");
+            dt2.Columns.Add("IntColumn", typeof(int));
+            dt2.Rows.Add(3);
+            dt2.Rows.Add(2);
+            dt2.Rows.Add(1);
+
+            var ds = new DataSet();
+            ds.Tables.Add(dt);
+            ds.Tables.Add(dt2);
+            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var output = stubble.Render("{{#foo.TableA}}{{IntColumn}}{{/foo.TableA}}-{{#foo.TableB}}{{IntColumn}}{{/foo.TableB}}", new { foo = ds });
+            Assert.Equal("123-321", output);
+        }
     }
 }
