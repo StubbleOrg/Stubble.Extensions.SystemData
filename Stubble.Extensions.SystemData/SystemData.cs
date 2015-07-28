@@ -17,7 +17,7 @@ namespace Stubble.Extensions.SystemData
             return builder;
         }
 
-        private static bool? DataTableTruthyCheck(object obj)
+        internal static bool? DataTableTruthyCheck(object obj)
         {
             var table = obj as DataTable;
             if (table != null)
@@ -27,7 +27,7 @@ namespace Stubble.Extensions.SystemData
             return null;
         }
 
-        private static object DataRowGetter(object value, string key)
+        internal static object DataRowGetter(object value, string key)
         {
             var dataRow = value as DataRow;
 
