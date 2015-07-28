@@ -35,10 +35,18 @@ namespace Stubble.Extensions.SystemData.Tests
             var dt = new DataTable();
             dt.Columns.Add("IntColumn", typeof(int));
             dt.Rows.Add(1);
-            dt.Rows.Add(2);
-            dt.Rows.Add(3);
 
             Assert.Equal(1, SystemData.DataRowGetter(dt.Rows[0], "IntColumn"));
+        }
+
+        [Fact]
+        public void It_Should_Not_Error_On_DataRow_Value_Miss()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+
+            Assert.Null(SystemData.DataRowGetter(dt.Rows[0], "IntColumns"));
         }
     }
 }
