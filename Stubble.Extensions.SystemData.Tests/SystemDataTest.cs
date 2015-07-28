@@ -50,6 +50,18 @@ namespace Stubble.Extensions.SystemData.Tests
         }
 
         [Fact]
+        public void It_Should_Not_Error_On_Table_Miss()
+        {
+            var dt = new DataTable("TableA");
+            var dt2 = new DataTable("TableB");
+            var ds = new DataSet();
+            ds.Tables.Add(dt);
+            ds.Tables.Add(dt2);
+
+            Assert.Null(SystemData.DataSetGetter(ds, "TableC"));
+        }
+
+        [Fact]
         public void It_Should_Treat_DataTable_As_List()
         {
             var dt = new DataTable();
