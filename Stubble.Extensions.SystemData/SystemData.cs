@@ -43,11 +43,13 @@ namespace Stubble.Extensions.SystemData
         {
             var dataSet = value as DataSet;
 
-            if (dataSet != null && dataSet.Tables.Contains(key))
+            int intVal;
+            if (int.TryParse(key, out intVal))
             {
-                return dataSet.Tables[key];
+                return dataSet.Tables[intVal];
             }
-            return null;
+
+            return dataSet.Tables.Contains(key) ? dataSet.Tables[key] : null;
         }
     }
 }
