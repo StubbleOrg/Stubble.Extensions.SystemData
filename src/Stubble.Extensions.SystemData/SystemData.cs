@@ -3,6 +3,7 @@ using Stubble.Core.Settings;
 using System.Collections;
 using System.Data;
 using System.Linq;
+using System;
 
 namespace Stubble.Extensions.SystemData
 {
@@ -13,6 +14,7 @@ namespace Stubble.Extensions.SystemData
             return builder
                 .AddValueGetter(typeof(DataRow), DataRowGetter)
                 .AddValueGetter(typeof(DataSet), DataSetGetter)
+                .AddTruthyCheck(DBNullTruthyCheck)
                 .AddEnumerationConversion(typeof (DataTable), DataTableEnumerationConversion)
                 .AddEnumerationConversion(typeof (DataSet), DataSetEnumerationConversion);
         }
@@ -58,6 +60,16 @@ namespace Stubble.Extensions.SystemData
             }
 
             return dataSet.Tables.Contains(key) ? dataSet.Tables[key] : null;
+        }
+
+        internal static bool? DBNullTruthyCheck(object value)
+        {
+            var dbnull = value as DBNull;
+            if (dbnull != null)
+            {
+                return false;
+            }
+            return null;
         }
     }
 }

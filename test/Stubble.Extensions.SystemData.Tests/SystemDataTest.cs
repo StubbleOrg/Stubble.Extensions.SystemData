@@ -144,5 +144,27 @@ namespace Stubble.Extensions.SystemData.Tests
             var output = stubble.Render("{{#foo}}{{#.}}{{IntColumn}}{{/.}}{{/foo}}", new { foo = ds });
             Assert.Equal("123321", output);
         }
+
+        [Fact]
+        public void It_Should_Treat_DBNull_As_Falsey_Direct()
+        {
+            Assert.Null(SystemData.DBNullTruthyCheck(0));
+            Assert.False(SystemData.DBNullTruthyCheck(System.DBNull.Value));
+        }
+
+        [Fact]
+        public void It_Should_Treat_DBNull_As_Falsey_Passed()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+            dt.Rows.Add(System.DBNull.Value);
+            dt.Rows.Add(3);
+
+            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var output = stubble.Render("{{#foo}}{{#IntColumn}}{{.}}{{/IntColumn}}{{/foo}}", new { foo = dt });
+            Assert.Equal("13", output);
+        }
     }
 }
