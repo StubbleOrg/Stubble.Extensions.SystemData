@@ -11,8 +11,9 @@ var testFramework = Argument("testFramework", "");
 var framework = Argument("framework", "");
 var runCoverage = Argument<bool>("runCoverage", true);
 
+var testBinDir = Directory("./test/Stubble.Extensions.SystemData.Tests/bin");
 var buildDir = Directory("./src/Stubble.Extensions.SystemData/bin") + Directory(configuration);
-var testBuildDir = Directory("./test/Stubble.Extensions.SystemData.Tests/bin") + Directory(configuration);
+var testBuildDir = testBinDir + Directory(configuration);
 
 var artifactsDir = Directory("./artifacts/");
 
@@ -67,8 +68,10 @@ Task("Test")
     .Does(() =>
 {
     Action<ICakeContext> testAction = tool => {
-        var buildDirPath = MakeAbsolute(testBuildDir).ToString();
-        var path = buildDirPath + "/**/*.Tests.dll";
+        var testBinDirPath = MakeAbsolute(testBinDir).ToString();
+        var path = testBinDirPath + "/**/*.Tests.dll";
+
+        Information(path);
 
         tool.XUnit2(path,
           new XUnit2Settings {
