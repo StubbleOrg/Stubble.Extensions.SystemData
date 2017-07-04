@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using Stubble.Core;
 using Xunit;
+using Stubble.Core.Builders;
 
 namespace Stubble.Extensions.SystemData.Tests
 {
@@ -9,7 +9,9 @@ namespace Stubble.Extensions.SystemData.Tests
         [Fact]
         public void It_Should_See_Empty_DataTables_As_Falsey()
         {
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+            var stubble = new StubbleBuilder()
+                .AddSystemData()
+                .Build();
 
             var output = stubble.Render("{{#foo}}I'm in foo{{/foo}}", new {foo = new DataTable()});
             Assert.Equal("", output);
