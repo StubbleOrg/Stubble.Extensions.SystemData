@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+      <PackageId>Stubble.Extensions.SystemData</PackageId>
+      <AssemblyName>Stubble.Extensions.SystemData</AssemblyName>
+      <Authors>Alex McAuliffe</Authors>
+      <Company>Alex McAuliffe</Company>
+      <Description>Extensions for System.Data Types for Stubble</Description>
+      <RepositoryType>git</RepositoryType>
+      <PackageProjectUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData</PackageProjectUrl>
+      <PackageLicenseUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData/blob/master/licence.md</PackageLicenseUrl>
+      <Copyright>Copyright © 2017</Copyright>
+      <PackageTags>template mustache text generation fast extension system data</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Stubble.Core" Version="1.0.27-alpha16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+
+</Project>

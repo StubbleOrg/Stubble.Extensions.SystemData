@@ -17,9 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{775A6E
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stubble.Extensions.SystemData", "Stubble.Extensions.SystemData\Stubble.Extensions.SystemData.csproj", "{DA37C615-0CE1-4DF6-A99D-2C6634DB452E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stubble.Extensions.SystemData", "src\Stubble.Extensions.SystemData\Stubble.Extensions.SystemData.csproj", "{DA37C615-0CE1-4DF6-A99D-2C6634DB452E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stubble.Extensions.SystemData.Tests", "Stubble.Extensions.SystemData.Tests\Stubble.Extensions.SystemData.Tests.csproj", "{C2B8C13F-7B0E-4E9D-A1AD-635C718F7A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stubble.Extensions.SystemData.Tests", "test\Stubble.Extensions.SystemData.Tests\Stubble.Extensions.SystemData.Tests.csproj", "{C2B8C13F-7B0E-4E9D-A1AD-635C718F7A79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{65FF587F-1E5A-4946-BFD7-A920113A7C5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6473155D-C76F-455A-834C-00E6BE9F5B9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,5 +42,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA37C615-0CE1-4DF6-A99D-2C6634DB452E} = {65FF587F-1E5A-4946-BFD7-A920113A7C5A}
+		{C2B8C13F-7B0E-4E9D-A1AD-635C718F7A79} = {6473155D-C76F-455A-834C-00E6BE9F5B9E}
 	EndGlobalSection
 EndGlobal
