@@ -12,41 +12,12 @@ assembly_info:
   assembly_informational_version: $(assembly_informational_version)
 install:
 - ps: >-
-    $version = Get-Content ./Stubble.Extensions.SystemData/version.json -Raw | ConvertFrom-Json;
-
-    $assembly_version = "$($version.major).$($version.minor).$($version.patch).$($env:APPVEYOR_BUILD_NUMBER)";
-
-    $env:assembly_version=$assembly_version;
-    $env:assembly_informational_version=$assembly_version;
-
-    Update-AppveyorBuild -Version $assembly_version;
-
-    if($version.packagePostfix) {
-        $assembly_informational_version = $assembly_version + "-" + $version.packagePostfix;
-        $env:assembly_informational_version=$assembly_informational_version;
-    }
-before_build:
-- nuget restore
-build:
-  project: Stubble.Extensions.SystemData.sln
-  publish_nuget: true
-  publish_nuget_symbols: true
-  verbosity: minimal
-test_script:
-- ps: >-
-    $Package_Locations = ".\packages";
-    $OpenCover_Location = Get-ChildItem ($Package_Locations + "\OpenCover*\tools") | Select-Object -First 1 -ExpandProperty FullName;
-    $Xunit_Location = Get-ChildItem ($Package_Locations + "\xunit.runner.console*\tools") | Select-Object -First 1 -ExpandProperty FullName;
-    $CoverallsNet_Location = Get-ChildItem ($Package_Locations + "\coveralls.net*") | Select-Object -First 1 -ExpandProperty FullName;
-
-    $openCoverExe = "$OpenCover_Location\OpenCover.Console.exe -register:user -target:""$Xunit_Location\xunit.console.exe"" ""-targetargs:"""".\Stubble.Extensions.SystemData.Tests\bin\$env:CONFIGURATION\Stubble.Extensions.SystemData.Tests.dll"""" -noshadow -appveyor"" -filter:""+[Stubble.*]*"" -skipautoprops -output:coverage.xml";
-    $coverallsExe = "$CoverallsNet_Location\csmacnz.Coveralls.exe --opencover -i coverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage ""$env:APPVEYOR_REPO_COMMIT_MESSAGE"" --jobId $env:APPVEYOR_JOB_ID"
-
-    iex $openCoverExe;
-    iex $coverallsExe;
+    dotnet --info
+build_script:
+- ps: .\build.ps1 -Target Appveyor
 artifacts:
-- path: Stubble.Extensions.SystemData\bin\$(Configuration)\Stubble.Extensions.SystemData.dll
-- path: .\coverage.xml
+- path: .\artifacts\*.nupkg
+- path: .\coverage-results\*
 deploy:
 - provider: NuGet
   api_key:
