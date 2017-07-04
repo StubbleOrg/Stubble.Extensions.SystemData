@@ -12,10 +12,14 @@
       <PackageLicenseUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData/blob/master/licence.md</PackageLicenseUrl>
       <Copyright>Copyright © 2017</Copyright>
       <PackageTags>template mustache text generation fast extension system data</PackageTags>
+      <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+      <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+      <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Stubble.Core" Version="1.0.27-alpha16" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="1.6.30" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
