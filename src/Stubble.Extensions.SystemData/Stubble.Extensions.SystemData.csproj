@@ -10,6 +10,7 @@
       <RepositoryType>git</RepositoryType>
       <PackageProjectUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData</PackageProjectUrl>
       <PackageLicenseUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData/blob/master/licence.md</PackageLicenseUrl>
+      <IconUrl>https://raw.githubusercontent.com/StubbleOrg/Stubble/dev/assets/extension-logo-64.png</IconUrl>
       <Copyright>Copyright © 2017</Copyright>
       <PackageTags>template mustache text generation fast extension system data</PackageTags>
       <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
