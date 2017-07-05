@@ -14,4 +14,6 @@ var builder = new StubbleBuilder().AddSystemData().Build();
 
 It's as simple as that, the package contains an Extension method for the StubbleBuilder adding in the ValueGetters required to handle DataTables, DataSets. It also adds the ability to use DataSets and DataTables as Lists.
 
+## Credits
+
 Straight Razor by Vectors Market from the Noun Project
