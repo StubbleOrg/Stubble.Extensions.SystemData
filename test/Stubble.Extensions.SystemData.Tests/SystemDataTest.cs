@@ -10,7 +10,7 @@ namespace Stubble.Extensions.SystemData.Tests
         public void It_Should_See_Empty_DataTables_As_Falsey()
         {
             var stubble = new StubbleBuilder()
-                .AddSystemData()
+                .Configure(settings => settings.AddSystemData())
                 .Build();
 
             var output = stubble.Render("{{#foo}}I'm in foo{{/foo}}", new {foo = new DataTable()});
@@ -20,7 +20,9 @@ namespace Stubble.Extensions.SystemData.Tests
         [Fact]
         public void It_Should_See_Empty_DataSets_As_Falsey()
         {
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo}}I'm in foo{{/foo}}", new { foo = new DataSet() });
             Assert.Equal("", output);
@@ -33,7 +35,17 @@ namespace Stubble.Extensions.SystemData.Tests
             dt.Columns.Add("IntColumn", typeof(int));
             dt.Rows.Add(1);
 
-            Assert.Equal(1, SystemData.DataRowGetter(dt.Rows[0], "IntColumn"));
+            Assert.Equal(1, SystemData.DataRowGetter(dt.Rows[0], "IntColumn", false));
+        }
+
+        [Fact]
+        public void It_Should_Be_Able_To_Retrieve_Values_From_DataRows_IgnoreCase()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("IntColumn", typeof(int));
+            dt.Rows.Add(1);
+
+            Assert.Equal(1, SystemData.DataRowGetter(dt.Rows[0], "intCOLUMN", true));
         }
 
         [Fact]
@@ -43,7 +55,7 @@ namespace Stubble.Extensions.SystemData.Tests
             dt.Columns.Add("IntColumn", typeof(int));
             dt.Rows.Add(1);
 
-            Assert.Null(SystemData.DataRowGetter(dt.Rows[0], "IntColumns"));
+            Assert.Null(SystemData.DataRowGetter(dt.Rows[0], "IntColumns", false));
         }
 
         [Fact]
@@ -55,7 +67,7 @@ namespace Stubble.Extensions.SystemData.Tests
             ds.Tables.Add(dt);
             ds.Tables.Add(dt2);
 
-            Assert.Null(SystemData.DataSetGetter(ds, "TableC"));
+            Assert.Null(SystemData.DataSetGetter(ds, "TableC", false));
         }
 
         [Fact]
@@ -67,7 +79,9 @@ namespace Stubble.Extensions.SystemData.Tests
             dt.Rows.Add(2);
             dt.Rows.Add(3);
 
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo}}{{IntColumn}}{{/foo}}", new { foo = dt });
             Assert.Equal("123", output);
@@ -91,7 +105,10 @@ namespace Stubble.Extensions.SystemData.Tests
             var ds = new DataSet();
             ds.Tables.Add(dt);
             ds.Tables.Add(dt2);
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo.TableA}}{{IntColumn}}{{/foo.TableA}}-{{#foo.TableB}}{{IntColumn}}{{/foo.TableB}}", new { foo = ds });
             Assert.Equal("123-321", output);
@@ -115,7 +132,10 @@ namespace Stubble.Extensions.SystemData.Tests
             var ds = new DataSet();
             ds.Tables.Add(dt);
             ds.Tables.Add(dt2);
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo.0}}{{IntColumn}}{{/foo.0}}-{{#foo.1}}{{IntColumn}}{{/foo.1}}", new { foo = ds });
             Assert.Equal("123-321", output);
@@ -139,7 +159,10 @@ namespace Stubble.Extensions.SystemData.Tests
             var ds = new DataSet();
             ds.Tables.Add(dt);
             ds.Tables.Add(dt2);
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo}}{{#.}}{{IntColumn}}{{/.}}{{/foo}}", new { foo = ds });
             Assert.Equal("123321", output);
@@ -148,7 +171,6 @@ namespace Stubble.Extensions.SystemData.Tests
         [Fact]
         public void It_Should_Treat_DBNull_As_Falsey_Direct()
         {
-            Assert.Null(SystemData.DBNullTruthyCheck(0));
             Assert.False(SystemData.DBNullTruthyCheck(System.DBNull.Value));
         }
 
@@ -161,7 +183,9 @@ namespace Stubble.Extensions.SystemData.Tests
             dt.Rows.Add(System.DBNull.Value);
             dt.Rows.Add(3);
 
-            var stubble = new StubbleBuilder().AddSystemData().Build();
+            var stubble = new StubbleBuilder()
+                .Configure(settings => settings.AddSystemData())
+                .Build();
 
             var output = stubble.Render("{{#foo}}{{#IntColumn}}{{.}}{{/IntColumn}}{{/foo}}", new { foo = dt });
             Assert.Equal("13", output);
