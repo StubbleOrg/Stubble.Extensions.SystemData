@@ -51,13 +51,13 @@ namespace Stubble.Extensions.SystemData.Tests
         [Fact]
         public void It_Should_Return_Null_On_Incorrect_Type_DataRow()
         {
-            Assert.Equal(1, SystemData.DataRowGetter(10, "IntColumn", false));
+            Assert.Null(SystemData.DataRowGetter(10, "IntColumn", false));
         }
 
         [Fact]
         public void It_Should_Return_Null_On_Incorrect_Type_DataSet()
         {
-            Assert.Equal(1, SystemData.DataSetGetter(10, "IntColumn", false));
+            Assert.Null(SystemData.DataSetGetter(10, "IntColumn", false));
         }
 
         [Fact]
