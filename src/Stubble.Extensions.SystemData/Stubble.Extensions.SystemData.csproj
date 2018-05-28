@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
-      <PackageId>Stubble.Extensions.SystemData</PackageId>
-      <AssemblyName>Stubble.Extensions.SystemData</AssemblyName>
-      <Authors>Alex McAuliffe</Authors>
-      <Company>Alex McAuliffe</Company>
-      <Description>Extensions for System.Data Types for Stubble</Description>
-      <RepositoryType>git</RepositoryType>
-      <PackageProjectUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData</PackageProjectUrl>
-      <PackageLicenseUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData/blob/master/licence.md</PackageLicenseUrl>
-      <PackageIconUrl>https://raw.githubusercontent.com/StubbleOrg/Stubble/dev/assets/extension-logo-64.png</PackageIconUrl>
-      <Copyright>Copyright © 2017</Copyright>
-      <PackageTags>template mustache text generation fast extension system data</PackageTags>
-      <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-      <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-      <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <TargetFrameworks>net45;netstandard20</TargetFrameworks>
+    <PackageId>Stubble.Extensions.SystemData</PackageId>
+    <AssemblyName>Stubble.Extensions.SystemData</AssemblyName>
+    <Authors>Alex McAuliffe</Authors>
+    <Company>Alex McAuliffe</Company>
+    <Description>Extensions for System.Data Types for Stubble</Description>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/StubbleOrg/Stubble.Extensions.SystemData/blob/master/licence.md</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/StubbleOrg/Stubble/dev/assets/extension-logo-64.png</PackageIconUrl>
+    <Copyright>Copyright © 2017</Copyright>
+    <PackageTags>template mustache text generation fast extension system data</PackageTags>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="System" />
   </ItemGroup>
 

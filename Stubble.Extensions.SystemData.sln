@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		licence.md = licence.md
 		readme.md = readme.md
@@ -46,5 +47,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DA37C615-0CE1-4DF6-A99D-2C6634DB452E} = {65FF587F-1E5A-4946-BFD7-A920113A7C5A}
 		{C2B8C13F-7B0E-4E9D-A1AD-635C718F7A79} = {6473155D-C76F-455A-834C-00E6BE9F5B9E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F31D6BDD-FB7D-4860-AD72-036CCBD5BE7D}
 	EndGlobalSection
 EndGlobal

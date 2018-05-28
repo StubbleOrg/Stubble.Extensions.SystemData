@@ -1,0 +1,11 @@
+# See http://docs.travis-ci.com/user/languages/csharp/ for details
+
+language: csharp
+sudo: required
+dist: trusty
+dotnet: 2.1.4
+git:
+  depth: 9999999
+
+script:
+  - ./build.sh --target Travis -- -runCoverage=false -framework="netstandard20" -testFramework="netcoreapp2.0"
